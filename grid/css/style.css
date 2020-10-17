@@ -16,3 +16,11 @@
     border-left: solid black 2.5px;
     border-bottom: solid black 2.5px;
 }
+
+.box {
+    width: 100px;
+    height: 100px;
+    margin: 2px;
+    background-color: green;
+    display: inline-block;
+}
