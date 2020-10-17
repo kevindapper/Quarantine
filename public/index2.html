@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+	<link rel="stylesheet" href="/css/style.css" type="text/css" crossorigin="anonymous">
+	<title>Test</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</head>
+<body>
+	<h1 id='foo'>Testere</h1>
+	<h2>Hellor</h2>
+	<div id="btn">Hello!</div>
+</body>
+<script>
+		var socket = io();
+		var btn = document.getElementById	('btn');
+		console.log(btn);
+		btn.addEventListener('click', function(){
+			socket.emit('user click', boat());
+		})
+		let car = () => {
+			console.log("button clicked!");
+			socket.emit('user click', boat());
+			
+		}
+		var boat = () => {
+			console.log('boat is hitting');
+			// document.getElementById('foo').setAttribute("class", "style1");
+			// document.getElementById('foo').append("<h1>hi</h1>");
+		}
+
+		//Listen for events
+		socket.on('user click', function(data){
+			document.getElementById('foo').setAttribute("class", "style1");
+			document.getElementById('foo').append("<h1>hi</h1>");
+		})
+		
+	</script>
+</html>
