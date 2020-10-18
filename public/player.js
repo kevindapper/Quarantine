@@ -8,11 +8,6 @@ class Player {
         this.size = playerSize;
         this.playerNumber = playerNumber;
         this.score = 0;
-
-    }
-
-    show() {
-
     }
 
     update() {
@@ -25,7 +20,6 @@ class Player {
     }
 
     move(moveX, moveY) {
-
         this.posX += moveX;
         this.posY += moveY;
         this.posX = constrain(this.posX, 0, width - this.size);

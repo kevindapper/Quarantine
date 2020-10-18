@@ -33,11 +33,22 @@ io.on('connection', (socket) => {
     socket.on('user 2 movement', (data1, data2) => {
         console.log("user 2 has moved");
         io.sockets.emit('user 2 movement', data1, data2);
-		})
-		socket.on('coin spawn', (data) => {
-			console.log("coins spawn serverside hit");
-			io.sockets.emit('coin spawn', data);
-		})
+    })
+    let cp;
+    socket.on('coin spawn', (data) => {
+        console.log("coins spawn serverside hit");
+        cp = {
+            cx: data * Math.floor(Math.random() * 11),
+            cy: data * Math.floor(Math.random() * 11),
+            cs: data,
+        }
+
+        io.sockets.emit('coin spawn', cp);
+    })
+    socket.on('coin update', (data) => {
+        io.sockets.emit('coin update', cp);
+    })
+
 });
 
 http.listen(3000, () => {

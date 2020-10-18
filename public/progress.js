@@ -11,6 +11,7 @@ function move() {
         if (width == 100) {
             width = 0;
             elem.style.width = width + '%';
+            go();
         } else {
             width++;
             elem.style.width = width + '%';
