@@ -113,9 +113,11 @@ function draw() {
     if (coin.remove(player1.posX, player1.posY, coin.posX, coin.posY)) {
         print("Player1");
         createCoins();
+        player1.scoreUp();
     } else if (coin.remove(player2.posX, player2.posY, coin.posX, coin.posY)) {
         print("Player2");
         createCoins();
+        player2.scoreUp();
     }
 
     /* for (let i = 0; i < coin.length; i++) {
@@ -128,10 +130,21 @@ function draw() {
     player1.update();
     player2.update();
     player1.collide(player2);
-
+    gameOver();
 
 }
 
+function gameOver() {
+    if (player1.score >= 5) {
+        size = 0;
+        alert("Player1 Wins!");
+        noLoop();
+    } else if (player2.score >= 5) {
+        size = 0
+        alert("Player2 Wins!");
+        noLoop();
+    }
+}
 
 
 let playerX;

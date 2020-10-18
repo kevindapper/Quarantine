@@ -20,6 +20,10 @@ class Player {
         rect(this.posX, this.posY, this.size, this.size);
     }
 
+    scoreUp() {
+        this.score++;
+    }
+
     move(moveX, moveY) {
 
         this.posX += moveX;
@@ -44,7 +48,5 @@ class Player {
         }
     }
 
-    score() {
-        this.score++;
-    }
+
 }
