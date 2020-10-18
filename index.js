@@ -33,7 +33,11 @@ io.on('connection', (socket) => {
     socket.on('user 2 movement', (data1, data2) => {
         console.log("user 2 has moved");
         io.sockets.emit('user 2 movement', data1, data2);
-    })
+		})
+		socket.on('coin spawn', (data) => {
+			console.log("coins spawn serverside hit");
+			io.sockets.emit('coin spawn', data);
+		})
 });
 
 http.listen(3000, () => {

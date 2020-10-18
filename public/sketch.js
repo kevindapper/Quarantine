@@ -63,6 +63,7 @@ let player2;
 let size;
 
 let cnv;
+let coinPos;
 
 function centerCanvas() {
     let x = (windowWidth - width) / 2;
@@ -71,7 +72,6 @@ function centerCanvas() {
 }
 
 let coin;
-let coinPos;
 
 function setup() {
     cnv = createCanvas(600, 600);
@@ -80,7 +80,12 @@ function setup() {
     h = height / 12;
     w = width / 12;
     size = w;
-    createCoins();
+		//createCoins();
+		socket.emit('coin spawn', true);
+		socket.on('coin spawn', function(data1) {
+			console.log("creating coins on client side: " + data1);
+			createCoins();
+	})
     player1 = new Player(0, 0, size, 1);
     player2 = new Player(size * 11, size * 11, size, 2);
 }
