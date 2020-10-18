@@ -15,7 +15,7 @@
         }
         
         #myBar {
-            background-color: #4caf50;
+            background-color: cadetblue;
             width: 10px;
             height: 30px;
             position: absolute;
@@ -23,14 +23,30 @@
     </style>
 </head>
 
-<body onload="setInterval(move(), 3000)">
+<body onload="move(1000)">
 
-    <h1>JavaScript Progress Bar</h1>
+    <h1 style="text-align: center;">Quarantine the Game</h1>
 
     <div id="myProgress">
         <div id="myBar"></div>
     </div>
-
+    <div style="text-align: center; width:50%; margin:auto;">
+        <p>Welcome to Quarantine the Game. Pick a set of controlls (W,A,S,D or the Arrow keys) and start playing! The main goal of the game is to get 5 blue coins! The first player to 5 coins wins the game! You are able to move every second. No more, no
+            less!
+        </p>
+        <div id="scoreBoard">
+            <table style="margin:auto; width:50%;">
+                <tr>
+                    <th>Player 1</th>
+                    <th>Player 2</th>
+                </tr>
+                <tr>
+                    <td id="player1Score">0</td>
+                    <td id="player2Score">0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="progress.js"></script>
     <script src="sketch.js"></script>

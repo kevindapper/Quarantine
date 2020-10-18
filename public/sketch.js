@@ -4,7 +4,7 @@ let h;
 let player1;
 let player2;
 let size;
-let coin;
+var coin;
 let cnv;
 let coinPos;
 let playerX;
@@ -34,7 +34,9 @@ function createCoins() {
     socket.emit('coin spawn', size);
 
     socket.on('coin spawn', (cp) => {
+        console.log(cp);
         coin = new Coins(cp.cx, cp.cy, cp.cs);
+        coin.update();
     })
 
 }
@@ -51,9 +53,9 @@ function draw() {
 
     }
 
-    socket.emit('coin update', coin);
-    coin.update();
 
+
+    coin.update();
     if (coin.remove(player1.posX, player1.posY, coin.posX, coin.posY)) {
         print("Player1");
         createCoins();
@@ -67,15 +69,13 @@ function draw() {
     player2.update();
     player1.collide(player2);
     gameOver();
-
 }
 
-socket.on('coin update', (cp) => {
-    console.log(cp);
-    let coin = new Coins(cp.cx, cp.cy, cp.cs);
-});
-
 function gameOver() {
+
+    document.getElementById("player1Score").innerHTML = player1.score;
+    document.getElementById("player2Score").innerHTML = player2.score;
+
     if (player1.score >= 5) {
         size = 0;
         alert("Player1 Wins!");

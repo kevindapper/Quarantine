@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
         io.sockets.emit('coin spawn', cp);
     })
     socket.on('coin update', (data) => {
+
         io.sockets.emit('coin update', cp);
     })
 
