@@ -22,7 +22,7 @@ function setup() {
     w = width / 12;
     size = w;
     for (let i = 0; i < 10; i++) {
-        //  coinArray[i] = new Coins(size * floor(random(10)), size * floor(random(10)), size);
+        coinArray.push(new Coins(size * floor(random(10)), size * floor(random(10)), size));
     }
     player1 = new Player(0, 0, size, 1);
     player2 = new Player(size * 11, size * 11, size, 2);
@@ -37,7 +37,23 @@ function draw() {
         line(w * i, 0, w * i, height);
         line(0, h, width, h);
         line(0, h * i, width, h * i);
-        // coin[i].update();
+
+    }
+
+    for (let i = 0; i < coinArray.length; i++) {
+        let p1 = dist(player1.posX, player1.posY, coinArray[i].posX + coinArray[i].size / 2, coinArray[i].posY + coinArray[i].size / 2, );
+        let p2 = dist(player2.posX, player2.posY, coinArray[i].posX + coinArray[i].size / 2, coinArray[i].posY + coinArray[i].size / 2, );
+        coinArray[i].update();
+
+        if (p1 < 15) {
+            console.log("p1: " + p1 + "  coinArray" + i);
+            coinArray.pop();
+            //      player1.score();
+        } else if (p2 < coinArray[i].size) {
+            console.log("p1: " + p2 + "  coinArray" + i + " " + coinArray[i]);
+            coinArray.pop();
+            //  player2.score();
+        }
     }
     player1.update();
     player2.update();

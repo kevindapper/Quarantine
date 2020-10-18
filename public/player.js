@@ -1,4 +1,5 @@
 class Player {
+
     constructor(posX, posY, playerSize, playerNumber) {
         this.homeX = posX;
         this.homeY = posY;
@@ -6,6 +7,7 @@ class Player {
         this.posY = posY;
         this.size = playerSize;
         this.playerNumber = playerNumber;
+        this.score = 0;
 
     }
 
@@ -33,7 +35,6 @@ class Player {
 
     collide(other) {
         var d = dist(this.posX + this.size / 2, this.posY + this.size / 2, other.posX + other.size / 2, other.posY + other.size / 2, );
-        print(d + "  " + other.size + this.size);
         // now see if distance between two is less than sum of two radius'
         if (d < other.size + this.size) {
             //fill(150);
@@ -41,5 +42,9 @@ class Player {
             this.returnHome();
             other.returnHome();
         }
+    }
+
+    score() {
+        this.score++;
     }
 }

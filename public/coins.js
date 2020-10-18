@@ -10,4 +10,6 @@ class Coins {
         rect(this.posX, this.posY, size, size);
     }
 
+
+
 }
