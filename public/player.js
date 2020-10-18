@@ -44,7 +44,8 @@ class Player {
         }
     }
 
-    score() {
+    playerScore() {
         this.score++;
     }
+
 }

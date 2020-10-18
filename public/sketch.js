@@ -1,3 +1,4 @@
+let socket = io();
 let w;
 let h;
 let player1;
@@ -12,7 +13,7 @@ function centerCanvas() {
     cnv.position(x, y);
 }
 
-let coinArray = [];;
+let coin;
 
 function setup() {
     cnv = createCanvas(800, 800);
@@ -28,8 +29,19 @@ function setup() {
     player2 = new Player(size * 11, size * 11, size, 2);
 }
 
-function draw() {
+function createCoins() {
+    // for (let i = 0; i < 12; i++) {
+    let cx = size * floor(random(11));
+    let cy = size * floor(random(11));
+    coin = (new Coins(cx, cy, size));
+    //coinPos = "FULL";
+    print(coinPos);
+    print("coint pos test:  (" + cx + ", " + cy + ")" + "   (" + cx / (size) + ", " + cy / (size) + ")");
+    //  }
+}
 
+function draw() {
+    createCoins();
     background(255);
     strokeWeight(4);
     for (let i = 0; i < 20; i++) {
@@ -39,28 +51,21 @@ function draw() {
         line(0, h * i, width, h * i);
 
     }
-
-    for (let i = 0; i < coinArray.length; i++) {
-        let p1 = dist(player1.posX, player1.posY, coinArray[i].posX + coinArray[i].size / 2, coinArray[i].posY + coinArray[i].size / 2, );
-        let p2 = dist(player2.posX, player2.posY, coinArray[i].posX + coinArray[i].size / 2, coinArray[i].posY + coinArray[i].size / 2, );
-        coinArray[i].update();
-
-        if (p1 < 15) {
-            console.log("p1: " + p1 + "  coinArray" + i);
-            coinArray.pop();
-            //      player1.score();
-        } else if (p2 < coinArray[i].size) {
-            console.log("p1: " + p2 + "  coinArray" + i + " " + coinArray[i]);
-            coinArray.pop();
-            //  player2.score();
-        }
+    coin.update();
+    if (coin.remove(player1.posX, player1.posY, coin.posX, coin.posY)) {
+        print("Player1");
+        player1.playerScore();
+        createCoins();
+    } else if (coin.remove(player2.posX, player2.posY, coin.posX, coin.posY)) {
+        print("Player2");
+        player2.playerScore();
+        createCoins();
     }
     player1.update();
     player2.update();
     player1.collide(player2);
-
-
 }
+
 let playerX;
 let playerY;
 
@@ -77,20 +82,20 @@ function keyPressed() {
 
     switch (keyCode) {
         case DOWN_ARROW:
-            player1.move(0, size);
+            socket.emit('user 1 movement', [0, size]);
+            console.log("yeee");
+            //player1.move(0, 60);
             break;
         case RIGHT_ARROW:
-            player1.move(size, 0);
+            socket.emit('user 1 movement', [size, 0]);
             break;
         case LEFT_ARROW:
-            player1.move(-size, 0);
+            socket.emit('user 1 movement', [-size, 0]);
+            //player1.move(-60, 0);
             break;
         case UP_ARROW:
-            player1.move(0, -size);
-            break;
-        case BACKSPACE:
-            player1.returnHome();
-            player2.returnHome();
+            socket.emit('user 1 movement', [0, -size]);
+            //player1.move(0, -60);
             break;
     }
 }
@@ -98,26 +103,26 @@ function keyPressed() {
 function keyTyped() {
     switch (key) {
         case "s":
-            console.log("yeee");
-            player2.move(0, size);
+            socket.emit('user 2 movement', [0, size]);
+            //player2.move(0, 60);
             break;
         case "d":
-            player2.move(size, 0);
+            socket.emit('user 2 movement', [size, 0]);
+            //player2.move(60, 0);
             break;
         case "a":
-            player2.move(-size, 0);
+            socket.emit('user 2 movement', [-size, 0]);
+            //player2.move(-60, 0);
             break;
         case "w":
-            player2.move(0, -size);
+            //player2.move(0, -60);
+            socket.emit('user 2 movement', [0, -size]);
             break;
     }
 }
 
-
-
-/*
-function mouseClicked() {
-    rect(mouseX, mouseY, 30, 30);
-    // prevent default
-    return false;
-}*/
+socket.on('user 2 movement', function(data1) {
+    console.log("data1 is" + data1[0]);
+    console.log("data 2 is" + data1[1]);
+    player2.move(data1[0], data1[1]);
+})
