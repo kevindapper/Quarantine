@@ -24,6 +24,14 @@ io.on('connection', (socket) => {
 			//io.emit('user click');
 			io.sockets.emit('user click', data);
 		})
+		socket.on('user 1 movement', (data1,data2) => {
+			console.log("user 1 has moved");
+			io.sockets.emit('user 1 movement', data1, data2);
+		})
+		socket.on('user 2 movement', (data1,data2) => {
+			console.log("user 2 has moved");
+			io.sockets.emit('user 2 movement', data1, data2);
+		})
   });
 
 http.listen(3000, () => {

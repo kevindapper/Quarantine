@@ -14,6 +14,9 @@ let b;
 let player1;
 let player2;
 
+//Creating socket
+let socket = io();
+
 function setup() {
     createCanvas(800, 800);
     background(255);
@@ -49,45 +52,60 @@ function fillSpace() {
 
 }
 
-
 function keyPressed() {
 
     switch (keyCode) {
         case DOWN_ARROW:
+						socket.emit('user 1 movement', [0,60]);
             console.log("yeee");
-            player1.move(0, 60);
+            //player1.move(0, 60);
             break;
         case RIGHT_ARROW:
-            player1.move(60, 0);
+            socket.emit('user 1 movement', [60,0]);
             break;
         case LEFT_ARROW:
-            player1.move(-60, 0);
+						socket.emit('user 1 movement', [-60,0]);
+            //player1.move(-60, 0);
             break;
         case UP_ARROW:
-            player1.move(0, -60);
+						socket.emit('user 1 movement', [0,-60]);
+            //player1.move(0, -60);
             break;
     }
 }
+
+socket.on('user 1 movement', function(data1) {
+	console.log("data1 is" + data1[0]);
+	console.log("data 2 is" + data1[1]);
+	player1.move(data1[0],data1[1]);
+})
 
 function keyTyped() {
     switch (key) {
         case "s":
-            console.log("yeee");
-            player2.move(0, 60);
+						socket.emit('user 2 movement', [0,60]);
+            //player2.move(0, 60);
             break;
         case "d":
-            player2.move(60, 0);
+						socket.emit('user 2 movement', [60,0]);
+            //player2.move(60, 0);
             break;
         case "a":
-            player2.move(-60, 0);
+						socket.emit('user 2 movement', [-60,0]);
+            //player2.move(-60, 0);
             break;
         case "w":
-            player2.move(0, -60);
+						//player2.move(0, -60);
+						socket.emit('user 2 movement', [0,-60]);
             break;
     }
 }
 
-
+socket.on('user 2 movement', function(data1) {
+	console.log("data1 is" + data1[0]);
+	console.log("data 2 is" + data1[1]);
+	player2.move(data1[0],data1[1]);
+})
 
 /*
 function mouseClicked() {
