@@ -11,7 +11,9 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+		console.log('a user connected');
+		console.log("your id is: " + socket.id);
+		let connectedPlayers = 0;
     socket.on('disconnect', () => {
 			console.log('user disconnected');
 			socket.removeAllListeners();
