@@ -10,6 +10,7 @@ class Coins {
         rect(this.posX, this.posY, size, size);
     }
 
-
-
+    remove(px, py, cx, cy) {
+        return (px == cx && py == cy);
+    }
 }
